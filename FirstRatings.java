@@ -85,8 +85,8 @@ public class FirstRatings {
                 gt150minMovies += 1;
             }
         }
-        System.out.println(countComedies);
-        System.out.println(gt150minMovies);
+        System.out.println("count Comedies " + countComedies);
+        System.out.println("greater than 150 minutes " +gt150minMovies);
 
         // 2 Add code to determine the maximum number of movies by any director, and who the directors are that directed that many movies
         HashMap<String, Integer> directorAndMovieMap = directorAndMovie(movielist);
@@ -111,7 +111,7 @@ public class FirstRatings {
             }   
         }
 
-        System.out.println("the maximum number of movies by any director" + maximum);
+        System.out.println("the maximum number of movies by any director " + maximum);
         System.out.println("who the directors are that directed that many movies ");
         for (String s : maxdirectores){
             System.out.println(s);
@@ -185,7 +185,7 @@ public class FirstRatings {
 
     
     public void testLoadRaters(){
-		ArrayList<Rater> raterList = loadRaters("ratings_short.csv");
+		ArrayList<Rater> raterList = loadRaters("ratings.csv");
 		//the maximum number of ratings by any rater. 
 		Double maximum = 0.0;
 		for (Rater rater : raterList) {
@@ -203,6 +203,7 @@ public class FirstRatings {
 		}
 
 		// Add code to find the number of ratings a particular movie has. If you run this code on the file ratings_short.csv for the movie “1798709”, you will see it was rated by four raters.
+
 		String spcificMovieId = "1798709";
 		int speCount = 0;
 		for (Rater rater : raterList) {
@@ -214,15 +215,27 @@ public class FirstRatings {
 			}
 		}
 
-		System.out.println(" the number of ratings a particular movie has " + speCount);
-		
+		System.out.println(" the number of ratings a particular movie is " + speCount);
+
 		// how many raters have this maximum number of ratings and who those raters are. 
 		ArrayList<String> maxRaters = countMaxRater(raterList, maximum);
-		System.out.println(maxRaters.size());
+		System.out.println("max raters list size " + maxRaters.size());
 		for (String id : maxRaters) {
-			System.out.println(id);
+			System.out.println("how many raters have this maximum number of ratings and who those raters are : " + id);
 		}
 
-	    
+		//how many different movies have been rated by all these raters.
+		ArrayList<String> differentMovieList = new ArrayList<String>();
+		for (Rater rater : raterList) {
+		
+			ArrayList<String> list = rater.getItemsRated();
+			for (int i = 0; i < rater.numRatings(); i++) {
+				if(!differentMovieList.contains(list.get(i))){
+					differentMovieList.add(list.get(i));
+				}
+			}
+		}
+	
+		System.out.println("total diffrent movie " + differentMovieList.size());
     }
 }
