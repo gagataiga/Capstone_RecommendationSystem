@@ -2,7 +2,7 @@
 /**
  * Write a description of class Rater here.
  * 
- * @author (your name) 
+ * @author taiga shiga 
  * @version (a version number or a date)
  */
 
