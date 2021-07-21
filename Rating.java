@@ -23,10 +23,14 @@ public class Rating implements Comparable<Rating> {
         return "[" + getItem() + ", " + getValue() + "]";
     }
 
+    // rating.value is doblue 
+    // value is also double
     public int compareTo(Rating other) {
+        // value が バリューよりも小さい場合は
         if (value < other.value) return -1;
+        // value が他のvalueよりも大きい場合
         if (value > other.value) return 1;
-        
+        // それ以外
         return 0;
     }
 }

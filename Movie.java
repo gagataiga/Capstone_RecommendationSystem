@@ -3,14 +3,14 @@ import java.util.Arrays;
 
 // An immutable passive data object (PDO) to represent item data
 public class Movie {
-    private String id;
-    private String title;
-    private int year;
-    private String genres;
-    private String director;
-    private String country;
-    private String poster;
-    private int minutes;
+    private String id;          // a String variable representing the IMDB ID of the movie
+    private String title;       // a String variable for the movie’s title
+    private int year;           // an integer representing the year
+    private String genres;      // one String of one or more genres separated by commas
+    private String director;    // one String of one or more directors of the movie separated by commas
+    private String country;     // one String of one or more countries the film was made in, separated by commas
+    private String poster;      // an integer for the length of the movie
+    private int minutes;        // a String that is a link to an image of the movie poster if one exists, or “N/A” if no poster exists
 
     public Movie (String anID, String aTitle, String aYear, String theGenres) {
         // just in case data file contains extra whitespace
