@@ -18,7 +18,6 @@ public class SecondRatings {
         this("ratedmoviesfull.csv", "ratings.csv");
     }
 
-    
     public SecondRatings(String movieFile,String ratingFile) {
         FirstRatings firstRatings = new FirstRatings();
         this.myMovies = firstRatings.loadMovies(movieFile);
@@ -64,7 +63,7 @@ public class SecondRatings {
                 }
             }
         }
-        
+
         if (countRaters < minimalRaters) {
             return 0.0;
         } else {

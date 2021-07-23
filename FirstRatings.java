@@ -207,19 +207,14 @@ public class FirstRatings {
     }
     
 
-    // public void testFromCsvRaters() {
-    //     String fileName = "ratings_short.csv";
-    //     FileResource fr = new FileResource("data/" + fileName);
-    //     CSVParser parser = fr.getCSVParser();
-        
-    //     HashMap<String, HashMap<String, Rating>> ratingList = fromCsvRaters(parser); 
-   
-    //     for (String key : ratingList.keySet()) {
-    //         System.out.println(ratingList.get(key));
-    //     }
-    // }
-
+    public HashMap<String, HashMap<String, Rating>> loadRatings(String filename) {
+        FileResource fr = new FileResource("data/" + filename);
+        CSVParser parser = fr.getCSVParser();
+        HashMap<String, HashMap<String, Rating>> ratingMapList = fromCsvRaters(parser);
     
+        return ratingMapList;
+    }
+
     public ArrayList<String> countMaxRater(ArrayList<Rater> raterList, Double max) {
         ArrayList<String> maxRaters = new ArrayList<String>();
         for (Rater rater : raterList) {
@@ -234,7 +229,6 @@ public class FirstRatings {
         return maxRaters;
     }
 
-    
     public void testLoadRaters(){
         ArrayList<Rater> raterList = loadRaters("ratings.csv");
         //the maximum number of ratings by any rater. 

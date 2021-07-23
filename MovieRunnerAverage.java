@@ -15,8 +15,7 @@ public class MovieRunnerAverage {
 	public void printAverageRatings() {
 		SecondRatings secondRatings = new SecondRatings();
 		System.out.println("movie size " + secondRatings.getMovieSize());
-		System.out.println("rating size " + secondRatings.getRaterSize());
-
+		System.out.println("rater size " + secondRatings.getRaterSize());
 		ArrayList<Rating> ratingList = secondRatings.getAverageRatings(20);
 		System.out.println("rating size" + ratingList.size());
 		// bubblie sort
