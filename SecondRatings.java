@@ -15,7 +15,7 @@ public class SecondRatings {
     private HashMap<String,HashMap<String,Rating>> myRatings;
     
     public SecondRatings() {
-        this("ratedmoviesfull.csv", "ratings.csv");
+        this("data/ratedmoviesfull.csv", "data/ratings.csv");
     }
 
     public SecondRatings(String movieFile,String ratingFile) {

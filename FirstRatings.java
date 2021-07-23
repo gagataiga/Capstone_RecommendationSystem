@@ -18,7 +18,7 @@ public class FirstRatings {
 
     public ArrayList<Movie> loadMovies(String filename) {
         ArrayList<Movie> movieList = new ArrayList<Movie>();
-        FileResource fr = new FileResource("data/" + filename);
+        FileResource fr = new FileResource(filename);
         CSVParser parser = fr.getCSVParser();
 
         for (CSVRecord record : parser) {
@@ -133,7 +133,7 @@ public class FirstRatings {
     }
 
     public ArrayList<Rater> loadRaters(String fileName) {
-        FileResource fr = new FileResource("data/" + fileName);
+        FileResource fr = new FileResource(fileName);
         CSVParser parser = fr.getCSVParser();
     
         ArrayList<Rater> raterList = new ArrayList<Rater>();
@@ -208,7 +208,7 @@ public class FirstRatings {
     
 
     public HashMap<String, HashMap<String, Rating>> loadRatings(String filename) {
-        FileResource fr = new FileResource("data/" + filename);
+        FileResource fr = new FileResource(filename);
         CSVParser parser = fr.getCSVParser();
         HashMap<String, HashMap<String, Rating>> ratingMapList = fromCsvRaters(parser);
     
