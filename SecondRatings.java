@@ -14,26 +14,27 @@ public class SecondRatings {
     private ArrayList<Rater> myRaters;
     private HashMap<String,HashMap<String,Rating>> myRatings;
     
-    public SecondRatings(String movieFile,String ratingFile) {
-        FirstRatings firstRatings = new FirstRatings();
-        this.myMovies = firstRatings.loadMovies(movieFile);
-        this.myRaters = firstRatings.loadRaters(ratingFile);
-    }
-
     public SecondRatings() {
         this("ratedmoviesfull.csv", "ratings.csv");
     }
 
-    // return the number of raters that were read in and stored in the ArrayList of type Rater
-    public int getRaterSize() {
-        return this.myRaters.size();
+    
+    public SecondRatings(String movieFile,String ratingFile) {
+        FirstRatings firstRatings = new FirstRatings();
+        this.myMovies = firstRatings.loadMovies(movieFile);
+        this.myRaters = firstRatings.loadRaters(ratingFile);
+        this.myRatings = firstRatings.loadRatings(ratingFile);
     }
 
      // return the number of movies that were read in and stored in the ArrayList of type Movie
-    public int getMovieSize() {
-        return this.myMovies.size();
-    }
-
+     public int getMovieSize() {
+         return this.myMovies.size();
+     }
+    
+      // return the number of raters that were read in and stored in the ArrayList of type Rater
+        public int getRaterSize() {
+            return this.myRatings.size();
+        }
 
     // This method returns a double representing the average movie rating for this ID if there are at least minimalRaters ratings. If there are not minimalRaters ratings, then it returns 0.0.
     public double getAverageById(String id, int minimalRaters) {
@@ -41,24 +42,34 @@ public class SecondRatings {
         double avarage = 0;
         double countRaters = 0;
 
-        for (Rater rater : this.myRaters) {
-            for (int i = 0; i < rater.numRatings(); i++) {
-                // get itemlist
-                ArrayList<String> list = rater.getItemsRated();
-                // movie_id == id 
-                if (list.get(i).equals(id)) {
-                    double tempRatingNum = rater.getRating(list.get(i));
+        // for (Rater rater : this.myRaters) {
+        //     for (int i = 0; i < rater.numRatings(); i++) {
+        //         // get itemlist
+        //         ArrayList<String> list = rater.getItemsRated();
+        //         // movie_id == id 
+        //         if (list.get(i).equals(id)) {
+        //             double tempRatingNum = rater.getRating(list.get(i));
+        //             totalRating += tempRatingNum;
+        //             countRaters +=1;
+        //         }
+        //     }
+        // }   
+
+        for (HashMap<String, Rating> ratingMap : myRatings.values()) {
+            for (Rating rating : ratingMap.values()) {
+                if (rating.getItem().equals(id)) {
+                    double tempRatingNum = rating.getValue();
                     totalRating += tempRatingNum;
-                    countRaters +=1;
+                    countRaters += 1;
                 }
             }
         }
         
         if (countRaters < minimalRaters) {
-               return 0.0;
-            } else {
-               avarage = totalRating / countRaters;
-            }
+            return 0.0;
+        } else {
+            avarage = totalRating / countRaters;
+        }
 
         return avarage;
     }
