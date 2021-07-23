@@ -12,16 +12,16 @@ import java.util.*;
 public class SecondRatings {
     private ArrayList<Movie> myMovies;
     private ArrayList<Rater> myRaters;
+    private HashMap<String,HashMap<String,Rating>> myRatings;
     
-
     public SecondRatings(String movieFile,String ratingFile) {
         FirstRatings firstRatings = new FirstRatings();
-        this.myMovies = firstRatings.LoadMovies(movieFile);
+        this.myMovies = firstRatings.loadMovies(movieFile);
         this.myRaters = firstRatings.loadRaters(ratingFile);
     }
 
     public SecondRatings() {
-        this("ratedmovies_short.csv", "ratings_short.csv");
+        this("ratedmoviesfull.csv", "ratings.csv");
     }
 
     // return the number of raters that were read in and stored in the ArrayList of type Rater
@@ -36,7 +36,7 @@ public class SecondRatings {
 
 
     // This method returns a double representing the average movie rating for this ID if there are at least minimalRaters ratings. If there are not minimalRaters ratings, then it returns 0.0.
-    private double getAverageById(String id, int minimalRaters) {
+    public double getAverageById(String id, int minimalRaters) {
         double totalRating = 0;
         double avarage = 0;
         double countRaters = 0;
@@ -87,5 +87,13 @@ public class SecondRatings {
         return id + "was not found";
     }
     
-    
+    //This method returns the movie ID of this movie. If the title is not found, return an appropriate message such as “NO SUCH TITLE.”
+    public String getID(String title) {
+        for (Movie movie : myMovies) {
+            if (movie.getTitle().equals(title)) {
+                return movie.getID();
+            }
+        }
+        return "NO SUCH TITLE";
+    }
 }

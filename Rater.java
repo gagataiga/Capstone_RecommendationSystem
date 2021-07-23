@@ -1,60 +1,27 @@
 
 /**
- * Write a description of class Rater here.
+ * Write a description of Rater here.
  * 
- * @author taiga shiga 
+ * @author Taiga Shiga 
  * @version (a version number or a date)
  */
 
 import java.util.*;
 
-public class Rater {
-    private String myID;
-    private ArrayList<Rating> myRatings;
+public interface Rater {
 
-    public Rater(String id) {
-        myID = id;
-        myRatings = new ArrayList<Rating>();
-    }
+	public void addRating(String id, double rating);
 
-    public void addRating(String item, double rating) {
-        myRatings.add(new Rating(item,rating));
-    }
+	public HashMap<String, Rating> getMyRating();
 
-    public boolean hasRating(String item) {
-        for(int k=0; k < myRatings.size(); k++){
-            if (myRatings.get(k).getItem().equals(item)){
-                return true;
-            }
-        }
-        
-        return false;
-    }
+	public boolean hasRating(String item);
 
-    public String getID() {
-        return myID;
-    }
+	public String getID();
 
-    public double getRating(String item) {
-        for(int k=0; k < myRatings.size(); k++){
-            if (myRatings.get(k).getItem().equals(item)){
-                return myRatings.get(k).getValue();
-            }
-        }
-        
-        return -1;
-    }
+	public double getRating(String item);
 
-    public int numRatings() {
-        return myRatings.size();
-    }
+	public int numRatings();
 
-    public ArrayList<String> getItemsRated() {
-        ArrayList<String> list = new ArrayList<String>();
-        for(int k=0; k < myRatings.size(); k++){
-            list.add(myRatings.get(k).getItem());
-        }
-        
-        return list;
-    }
+	public ArrayList<String> getItemsRated();
+
 }
