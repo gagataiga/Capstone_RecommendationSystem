@@ -26,7 +26,7 @@ public class AllFilters implements Filter{
                 return false;
             }
         }
-        
+
         return true;
     }
 

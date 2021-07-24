@@ -80,12 +80,12 @@ public class FirstRatings {
         // Movie comdyMovie;
         for (Movie movie : movielist) {
             // 1 Add code to determine how many movies include the Comedy genre. 
-            // In the file ratedmovies_short.csv, there is only one.
+            // In the file ratedmoviesfull.csv, there is only one.
             if (movie.getGenres().contains("Comedy")) {
                 countComedies += 1;
             }
             // Add code to determine how many movies are greater than 150 minutes in length. 
-            // In the file ratedmovies_short.csv, there are two. 
+            // In the file ratedmoviesfull.csv, there are two. 
             if (movie.getMinutes() > 150) {
                 gt150minMovies += 1;
             }

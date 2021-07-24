@@ -14,7 +14,7 @@ public class ThirdRatings {
 	private HashMap<String,HashMap<String,Rating>>myRatings;
     
     public ThirdRatings() {
-        this("data/ratings_short.csv");
+        this("data/ratings.csv");
     }
 
 	public ThirdRatings(String ratingsfile) {
