@@ -41,19 +41,6 @@ public class SecondRatings {
         double avarage = 0;
         double countRaters = 0;
 
-        // for (Rater rater : this.myRaters) {
-        //     for (int i = 0; i < rater.numRatings(); i++) {
-        //         // get itemlist
-        //         ArrayList<String> list = rater.getItemsRated();
-        //         // movie_id == id 
-        //         if (list.get(i).equals(id)) {
-        //             double tempRatingNum = rater.getRating(list.get(i));
-        //             totalRating += tempRatingNum;
-        //             countRaters +=1;
-        //         }
-        //     }
-        // }   
-
         for (HashMap<String, Rating> ratingMap : myRatings.values()) {
             for (Rating rating : ratingMap.values()) {
                 if (rating.getItem().equals(id)) {

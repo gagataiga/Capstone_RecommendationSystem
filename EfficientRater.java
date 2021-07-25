@@ -17,11 +17,10 @@ public class EfficientRater implements Rater{
         myRatings = new HashMap<String, Rating>();
     }
 
-
     public void addRating(String item, double rating) {
         Rating newRating = new Rating(item, rating);
         // itemn = movie id
-        // newRating = rating of several movie
+        // newRating = rating of particular movie
         myRatings.put(item, newRating);
     }
 
@@ -61,7 +60,6 @@ public class EfficientRater implements Rater{
         for(int k=0; k < myRatings.size(); k++){
             list.add(myRatings.get(k).getItem());
         }
-        
         return list;
     }
 }
