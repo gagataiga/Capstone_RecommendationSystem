@@ -25,10 +25,8 @@ public class EfficientRater implements Rater{
     }
 
     public boolean hasRating(String item) {
-        for(int k=0; k < myRatings.size(); k++){
-            if (myRatings.get(k).getItem().equals(item)){
-                return true;
-            }
+        if(myRatings.containsKey(item)){
+            return true;
         }
         return false;
     }
@@ -43,10 +41,8 @@ public class EfficientRater implements Rater{
     
     
     public double getRating(String item) {
-        for(int k=0; k < myRatings.size(); k++){
-            if (myRatings.get(k).getItem().equals(item)){
-                return myRatings.get(k).getValue();
-            }
+        if (myRatings.get(item) != null) {
+            return myRatings.get(item).getValue();
         }
         return -1;
     }
@@ -56,10 +52,13 @@ public class EfficientRater implements Rater{
     }
 
     public ArrayList<String> getItemsRated() {
-        ArrayList<String> list = new ArrayList<String>();
-        for(int k=0; k < myRatings.size(); k++){
-            list.add(myRatings.get(k).getItem());
+        if(myRatings == null){
+            ArrayList<String> nullList = new ArrayList<String>();
+            nullList.add("null");
+            return nullList;
         }
+        ArrayList<String> list = new ArrayList<String>(myRatings.keySet());
         return list;
     }
+    
 }

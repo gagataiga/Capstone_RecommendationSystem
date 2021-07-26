@@ -9,6 +9,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.text.Style;
+
 public class MovieRunnerWithFilters {
 
 	public void printAverageRatings() {
@@ -143,7 +145,7 @@ public class MovieRunnerWithFilters {
 	}
 	
 	public void printAverageRatingsByDirectorsAndMinutes() {
-		
+
 		ThirdRatings thirdRatings = new ThirdRatings();
 		ArrayList<String> movies = MovieDatabase.filterBy(new TrueFilter());
 		// conform 
@@ -162,11 +164,13 @@ public class MovieRunnerWithFilters {
 
 		Sort sort = new Sort(ratingsList);
 		sort.ascendingOrder();
-		
+
 		for (Rating rating : sort.getRatingList()) {
 			String id = rating.getItem();
-			System.out.println("rating: " + rating.getValue() + " Minutes:" + MovieDatabase.getMinutes(id)+ " movie: "
+			System.out.println("rating: " + rating.getValue() + " Minutes:" + MovieDatabase.getMinutes(id) + " movie: "
 					+ MovieDatabase.getTitle(id) + " Directors:" + MovieDatabase.getDirector(id));
 		}
 	}
-}
+	
+	}
+

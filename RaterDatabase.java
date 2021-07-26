@@ -13,12 +13,16 @@ public class RaterDatabase {
     // Rater => EfficenRater
     private static HashMap<String,Rater> ourRaters;
      
-	private static void initialize() {
-	    // this method is only called from addRatings 
-		if (ourRaters == null) {
-			ourRaters = new HashMap<String,Rater>();
-		}
-	}
+    private static void initialize() {
+        // this method is only called from addRatings 
+        if (ourRaters == null) {
+            ourRaters = new HashMap<String, Rater>();
+        }
+    }
+    
+    public static HashMap<String, Rater> getOurRaters(){
+        return ourRaters;
+    }
 
     public static void initialize(String filename) {
  		if (ourRaters == null) {
@@ -37,6 +41,7 @@ public class RaterDatabase {
                 String rating = rec.get("rating");
                 addRaterRating(id,item,Double.parseDouble(rating));
         } 
+  
     }
     
     public static void addRaterRating(String raterID, String movieID, double rating) {
@@ -52,7 +57,7 @@ public class RaterDatabase {
                  }
                  rater.addRating(movieID,rating);
     } 
-	         
+	
     public static Rater getRater(String id) {
     	initialize();
     	return ourRaters.get(id);

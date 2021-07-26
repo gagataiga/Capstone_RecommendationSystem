@@ -22,7 +22,6 @@ public class FourthRatings {
 		return RaterDatabase.getRaters();
 	}
 	
-	
 	public double getAverageById(String id, int minimalRaters) {
 		ArrayList<Rater> raters = RaterDatabase.getRaters();
 		double totalRating = 0;
@@ -75,7 +74,6 @@ public class FourthRatings {
 		return ratingByFilterList;
 	}
 
-
 	public ArrayList<Rating> checkMinimalRaters(int minimalRaters, ArrayList<String> movies) {
 		ArrayList<Rating> ratingsList = new ArrayList<Rating>();
 		for (String movieID : movies) {
@@ -89,78 +87,126 @@ public class FourthRatings {
 		return ratingsList;
 	}
 
-	// - Write the private helper method named dotProduct, which has two parameters, a Rater named me and a Rater named r. 
-	// This method should first translate a rating from the scale 0 to 10 to the scale -5 to 5 and return the dot product of the ratings of movies that they both rated. This method will be called by getSimilarities.
 
 	public double dotProduct(Rater me, Rater r) {
-		HashMap<String, Rating> myRatingMap = me.getMyRating();
-		HashMap<String, Rating> rRatingMap = r.getMyRating();
-		double result = 0.0;
-
-		// 1:add Ratings to myMoviesRat
-		ArrayList<Rating> myMoviesRat = new ArrayList<Rating>();
-		for (Rating myRat : myRatingMap.values()) {
-			myMoviesRat.add(myRat);
-		}
-
-		// 2: add Rating to rMoviesRat;
-		ArrayList<Rating> rMoviesRat = new ArrayList<Rating>();
-		for (Rating rRat : rRatingMap.values()) {
-			rMoviesRat.add(rRat);
-		}
-
-		// 3: if r's movieID contains mymovie'ID
-		// then it can calculate and get result;
-		for (int i = 0; i < myMoviesRat.size(); i++) {
-			String myMovieID = myMoviesRat.get(i).getItem();
-			Double myValue = myMoviesRat.get(i).getValue();
-
-			for (int k = 0; k < rMoviesRat.size(); k++) {
-				String rMovieID = rMoviesRat.get(k).getItem();
-				double rValue = rMoviesRat.get(k).getValue();
-
-				// check if myMovieID is inculded rMovieID
-				if (myMovieID.contains(rMovieID)) {
-					double tmpValue = 0.0;
-					tmpValue = (rValue - 5) * (myValue - 5);
-					// adding
-					result += tmpValue;
-				}
+		double sum = 0;
+		ArrayList<String> items = r.getItemsRated();
+		// using r's itemlist 
+		for (String item : items) {
+			// check me is inclued item
+			if (me.hasRating(item)) {
+				// adding
+				sum += (me.getRating(item) - 5) * (r.getRating(item) - 5);
 			}
 		}
-        return result;
-    }
+		return sum;
+	}
 	
 
-	// This method returns an ArrayList of type Rating sorted by ratings from highest to lowest rating with the highest rating first and only including those raters who have a positive similarity rating since those with negative values are not similar in any way
 	private ArrayList<Rating> getSimilarities(String id) {
 		ArrayList<Rating> resultRating = new ArrayList<Rating>();
 		Rater myRater = RaterDatabase.getRater(id);
-
-		for (Rater rater : RaterDatabase.getRaters()) {
-			if (!rater.getID().equals(id)) {
-				Double resultNum = dotProduct(myRater, rater);
-				if (resultNum > 0) {
-					resultRating.add(new Rating(rater.getID(), resultNum));
-				}
+		ArrayList<Rater> raters = RaterDatabase.getRaters();
+		for (Rater rater : raters) {
+			// remove my rater
+			if (rater.equals(myRater)) {
+				continue;
 			}
+			double resultNum = dotProduct(myRater, rater);
+			if (resultNum < 0) {
+				continue;
+			}
+			resultRating.add(new Rating(rater.getID(), resultNum));
 		}
 		Collections.sort(resultRating, Collections.reverseOrder());
 		return resultRating;
 	}
 	
 
-	//This method should return an ArrayList of type Rating, of movies and their weighted average ratings using only the top numSimilarRaters with positive ratings and including only those movies that have at least minimalRaters ratings from those most similar raters (not just minimalRaters ratings overall). 
-	public ArrayList<Rating> getSimilarRatings(String id, int numSimilarRaters, int minimalRaters){
+	public ArrayList<Rating> getSimilarRatings(String id, int numSimilarRaters, int minimalRaters) {
+		// for return result
 		ArrayList<Rating> ratingsList = new ArrayList<Rating>();
+		// private helper 
 		ArrayList<Rating> similerRatings = getSimilarities(id);
 		ArrayList<String> allMovies = MovieDatabase.filterBy(new TrueFilter());
-		double ratingNum = 0;
 
-		for(){
+		for (String movieID : allMovies) {
+			double sumWeight = 0.0;
+			int totalRaters = 0;
+			for (int i = 0; i < numSimilarRaters; i++) {
+				// i番目に似ているsimilerRatingを取り出す
+				Rating similerRating = similerRatings.get(i);
+				// i番目のsimilerRatingのmovieIDを使用して
+				// 特定のRaterをもってくる
+				Rater r = RaterDatabase.getRater(similerRating.getItem());
+
+				// 引数idが持つ映画が存在した場合はおすすめ対象からはずす
+				if (RaterDatabase.getRater(id).hasRating(movieID)) {
+					continue;
+				}
+
+				// 自分とsimilerなraterが特定のmovieをもっていた場合には
+				// sum wegihtに追加していく
+				if (r.hasRating(movieID)) {
+					sumWeight += (r.getRating(movieID)) * similerRating.getValue();
+					totalRaters += 1;
+				}
+			}
+
+			// もし、minimalRaters よりも あるmovieeo
+
+			if (totalRaters >= minimalRaters) {
+				// 
+				ratingsList.add(new Rating(movieID, sumWeight/totalRaters));
+			}
 		}
-		
-		return similerRatings;
+		// sort
+		Collections.sort(ratingsList, Collections.reverseOrder());
+		return ratingsList;
 	}
 
+
+	public ArrayList<Rating> getSimilarRatingsByFilter(String id, int numSimilarRaters, int minimalRaters,
+			Filter filterCriteria) {
+		// result
+		ArrayList<Rating> ratingsList = new ArrayList<Rating>();
+		// private helper
+		ArrayList<Rating> similerRatings = getSimilarities(id);
+		// specific filter from arg
+		ArrayList<String> allMovies = MovieDatabase.filterBy(filterCriteria);
+
+
+		for (String movieID : allMovies) {
+			double sumWeight = 0.0;
+			int totalRaters = 0;
+			for (int i = 0; i < numSimilarRaters; i++) {
+				// i番目に似ているsimilerRatingを取り出す
+				Rating similerRating = similerRatings.get(i);
+				// i番目のsimilerRatingのmovieIDを使用して
+				// 特定のRaterをもってくる
+				Rater r = RaterDatabase.getRater(similerRating.getItem());
+
+				// 引数idが持つ映画が存在した場合はおすすめ対象からはずす
+				if (RaterDatabase.getRater(id).hasRating(movieID)) {
+					continue;
+				}
+
+				// 自分とsimilerなraterが特定のmovieをもっていた場合には
+				// sum wegihtに追加していく
+				if (r.hasRating(movieID)) {
+					sumWeight += (r.getRating(movieID)) * similerRating.getValue();
+					totalRaters += 1;
+				}
+			}
+
+			// もし、minimalRaters よりも あるmovieeo
+
+			if (totalRaters >= minimalRaters) {
+				ratingsList.add(new Rating(movieID, sumWeight/totalRaters));
+			}
+		}
+		// sort
+		Collections.sort(ratingsList, Collections.reverseOrder());
+		return ratingsList;
+	}
 }
