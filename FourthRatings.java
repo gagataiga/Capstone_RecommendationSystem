@@ -187,9 +187,9 @@ public class FourthRatings {
 				Rater r = RaterDatabase.getRater(similerRating.getItem());
 
 				// 引数idが持つ映画が存在した場合はおすすめ対象からはずす
-				if (RaterDatabase.getRater(id).hasRating(movieID)) {
-					continue;
-				}
+				// if (RaterDatabase.getRater(id).hasRating(movieID)) {
+				// 	continue;
+				// }
 
 				// 自分とsimilerなraterが特定のmovieをもっていた場合には
 				// sum wegihtに追加していく

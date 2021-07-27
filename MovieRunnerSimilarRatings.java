@@ -113,7 +113,7 @@ public class MovieRunnerSimilarRatings {
         String raterID = "168";
         int similarNum = 10;
         int min = 3;
-        String genre = "Adventure";
+        String genre = "Drama";
         int minMinutes = 80;
         int maxMinutes = 160;
         AllFilters allFilters = new AllFilters();
