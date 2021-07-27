@@ -23,9 +23,27 @@ public class RecommendationRunner implements Recommender{
 	private void show(ArrayList<Rating> movies) {
 		System.out.println("<h2> Recommendation for you </h2>");
 		System.out.println("");
-		for (int i = 0; i < 10 ; i++) {
-			System.out.println("<h3>"+ "No" + (i+1)  + " : " +MovieDatabase.getTitle(movies.get(i).getItem()) + "</3>");
+		int movieNum = movies.size();
+		int num = 10;
+
+		// もしmovieNum が10より少ない場合は入れ替える
+		if (movieNum < num) {
+			num = movieNum;
 		}
+		System.out
+				.println("<style>p{ color: green;" + "\n" + "font-style: italic;" + "\n" + "font-size: 20px;}</style>");
+
+		for (int i = 0; i < num; i++) {
+			System.out.println(
+					"<p>" + "No" + (i + 1) + " " + 
+							"<img src=" + "\"" + MovieDatabase.getPoster(movies.get(i).getItem()) + "\""
+							+ "alt=" + "\"" +"movie_img"+  "\"" 
+							+ "width=" 
+							+ "\"" + 50 + "\"" + "height=" + "\"" + 50 + "\"" + ">"
+					+ " : " + MovieDatabase.getTitle(movies.get(i).getItem()) 
+							+ "<p>");			
+		}
+		
 	}	
 
 	@Override
@@ -42,6 +60,7 @@ public class RecommendationRunner implements Recommender{
 
 		// if we can't find recomended movies for user
 		// applogize to them
+		System.out.println("<style>p{ color: green;}</style>");
 		if (movies.size() == 0) {
 			System.out.println("<p>Sorry we can't find any recommendations</p>");
 		} else {
