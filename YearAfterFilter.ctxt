@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=YearAfterFilter
+comment0.text=\n\ Write\ a\ description\ of\ YearAfterFilter\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=year
+comment1.target=YearAfterFilter(int)
+comment2.params=id
+comment2.target=boolean\ satisfies(java.lang.String)
+numComments=3

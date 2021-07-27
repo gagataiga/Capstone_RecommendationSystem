@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=TrueFilter
+comment0.text=\n\ Write\ a\ description\ of\ TrueFilter\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=id
+comment1.target=boolean\ satisfies(java.lang.String)
+numComments=2
